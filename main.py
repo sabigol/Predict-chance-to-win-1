@@ -1,17 +1,12 @@
 import threading
 from queue import Queue
-from spider import Spider
-from domain import *
-from general import *
 
-PROJECT_NAME = 'livescore'
-HOMEPAGE = 'http://www.tablesleague.com/livescores/'
-DOMAIN_NAME = get_domain_name(HOMEPAGE)
-QUEUE_FILE = PROJECT_NAME + '/queue.txt'
-CRAWLED_FILE = PROJECT_NAME + '/crawled.txt'
-NUMBER_OF_THREADS = 4
-queue = Queue()
-Spider(PROJECT_NAME, HOMEPAGE, DOMAIN_NAME)
+from spider import Spider
+
+PROJECT_NAME = 'pilka_nozna'
+PAGE = 'http://www.tablesleague.com/livescores/'
+NUMBER_OF_THREADS = 1
+Spider(PAGE)
 
 
 # Tworzenie wątków zadań
@@ -24,25 +19,6 @@ def create_workers():
 
 # Wykonywanie kolejnych zadań
 def work():
-    while True:
-        url = queue.get()
-        Spider.crawl_page(threading.current_thread().name, url)
-        queue.task_done()
-
-
-# Każdy link jest nowym zadaniem
-def create_jobs():
-    for link in file_to_set(QUEUE_FILE):
-        queue.put(link)
-    queue.join()
-
-
-# Sprawdzanie czy są strony w kolejce, jaksą to wykonać zadanie
-def crawl():
-    queue_links = file_to_set(QUEUE_FILE)
-    if len(queue_links) > 0:
-        print(str(len(queue_links)) + ' links in the queue')
-        create_jobs()
+    Spider.crawl_page(threading.current_thread().name, PAGE)
 
 create_workers()
-crawl()
