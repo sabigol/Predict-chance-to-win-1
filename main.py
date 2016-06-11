@@ -5,7 +5,7 @@ from domain import *
 from general import *
 
 PROJECT_NAME = 'livescore'
-HOMEPAGE = 'http://www.livescore.in/pl/'
+HOMEPAGE = 'http://www.tablesleague.com/livescores/'
 DOMAIN_NAME = get_domain_name(HOMEPAGE)
 QUEUE_FILE = PROJECT_NAME + '/queue.txt'
 CRAWLED_FILE = PROJECT_NAME + '/crawled.txt'
