@@ -21,21 +21,19 @@ def create_data_files(project_name, base_url):
 
 # Tworzenie nowego pliku
 def write_file(path, data):
-    f = open(path, 'w')
-    f.write(data)
-    f.close()
+    with open(path, 'w') as f:
+        f.write(data)
 
 
 # Dodawnie danych do istniejących plików
 def append_to_file(path, data):
     with open(path, 'a') as file:
-        file.write(data + '/n')
+        file.write(data + '\n')
 
 
 # Usuwanie danych z pliku
 def delete_file_contents(path):
-    with open(path, 'w'):
-        pass
+    open(path, 'w').close()
 
 
 # Odczytywanie danych z pliku i konwersja linii na zadanie

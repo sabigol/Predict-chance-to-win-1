@@ -1,5 +1,6 @@
 from urllib.request import urlopen
 from link_finder import LinkFinder
+from domain import *
 from general import *
 
 
@@ -14,7 +15,6 @@ class Spider:
     crawled = set()
 
     def __init__(self, project_name, base_url, domain_name):
-        super().__init__()
         Spider.project_name = project_name
         Spider.base_url = base_url
         Spider.domain_name = domain_name
@@ -23,6 +23,7 @@ class Spider:
         self.boot()
         self.crawl_page('First spider', Spider.base_url)
 
+    # Tworzenie folderu i plików projektu przy pierwszym uruchomieniu
     @staticmethod
     def boot():
         create_project_dir(Spider.project_name)
@@ -30,6 +31,7 @@ class Spider:
         Spider.queue = file_to_set(Spider.queue_file)
         Spider.crawled = file_to_set(Spider.crawled_file)
 
+    # Aktualizacja plików przy pierwszym uruchomieniu
     @staticmethod
     def crawl_page(thread_name, page_url):
         if page_url not in Spider.crawled:
@@ -40,21 +42,23 @@ class Spider:
             Spider.crawled.add(page_url)
             Spider.update_files()
 
+    # Zamiana danych na odpowiedni html
     @staticmethod
     def gather_links(page_url):
         html_string = ''
         try:
             response = urlopen(page_url)
-            if response.getheader('Content-Type') == 'text/html':
+            if 'text/html' in response.getheader('Content-Type'):
                 html_bytes = response.read()
-                html_string = html_bytes
+                html_string = html_bytes.decode("utf-8")
             finder = LinkFinder(Spider.base_url, page_url)
             finder.feed(html_string)
-        except:
-            print('Error: can not crawl page')
+        except Exception as e:
+            print(str(e))
             return set()
-        return finder
+        return finder.page_links()
 
+    # Zapisywanie kolejki do pliku
     @staticmethod
     def add_links_to_queue(links):
         for url in links:
