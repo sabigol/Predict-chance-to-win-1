@@ -1,7 +1,7 @@
 from urllib.parse import urlparse
 
 
-# pobieranie normalnej domeny
+# Pobieranie normalnej domeny
 def get_domain_name(url):
     try:
         results = get_sub_domain_name(url).split('.')
@@ -16,5 +16,3 @@ def get_sub_domain_name(url):
         return urlparse(url).netloc
     except:
         return ''
-
-#print(get_domain_name('http://livescore.in/pl/'))
