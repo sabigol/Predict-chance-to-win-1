@@ -3,7 +3,6 @@ from queue import Queue
 
 from spider import Spider
 
-PROJECT_NAME = 'pilka_nozna'
 PAGE = 'http://www.tablesleague.com/livescores/'
 NUMBER_OF_THREADS = 1
 Spider(PAGE)

@@ -54,7 +54,7 @@ class MatchFinder:
                     str(predb) + "')")
         cur.close()
         conn.close()
-        # self.see_db();
+        self.see_db();
 
     @staticmethod
     def see_db():

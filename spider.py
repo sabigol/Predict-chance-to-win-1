@@ -4,7 +4,6 @@ from match_finder import MatchFinder
 
 class Spider:
 
-    project_name = ''
     base_url = ''
 
     def __init__(self, base_url):
