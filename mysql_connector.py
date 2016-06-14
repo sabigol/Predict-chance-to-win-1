@@ -1,30 +1,51 @@
+from __future__ import print_function
 
-
+import pymysql
 
 
 class MySQLConnector:
-    connection = None
+    host = ''
+    port = 0
+    login = ''
+    password = ''
+    db = ''
 
-    @staticmethod
-    def connect_dbs():
-        conn = pymysql.connect(host='localhost', port='3360', user='root', passwd='root', db='predictor')
-        cur.execute("INSERT INTO matches VALUES ('', '', '', '"+date+"', '"+teama+"', '"+teamb+"', '"+preda+"', '"+predx+"', '"+predb+"' )")
-        return conn
+    def __init__(self):
+        self.host = '127.0.0.1'
+        self.port = 3306
+        self.login = 'root'
+        self.password = 'root'
+        self.db = 'predictor'
 
     def insert_item(self, date, teama, teamb, preda, predx, predb):
-        cur = self.conn.cursor()
-        cur.execute("INSERT INTO matches VALUES ('', '', '', '"+date+"', '"+teama+"', '"+teamb+"', '"+preda+"', '"+predx+"', '"+predb+"' )")
-        self.cur.close()
-        self.conn.close()
+        conn = pymysql.connect(host=self.host,
+                               port=self.port,
+                               user=self.login,
+                               passwd=self.password,
+                               db=self.db,
+                               autocommit=True)
+        cur = conn.cursor()
+        cur.execute("INSERT INTO `matches` VALUES ('" + str(date) + "', '" +
+                    str(teama) + "', '" +
+                    str(teamb) + "', '" +
+                    str(preda) + "', '" +
+                    str(predx) + "', '" +
+                    str(predb) + "')")
+        cur.close()
+        conn.close()
+        self.see_db()
 
-    @staticmethod
-    def get_items():
-        cur = MySQLConnector.conn.cursor()
-        cur.execute("SELECT * FROM matches")
-        print(MySQLConnector.cur.description)
-        print()
+    def see_db(self):
+        conn = pymysql.connect(host=self.host,
+                               port=self.port,
+                               user=self.login,
+                               passwd=self.password,
+                               db=self.db,
+                               autocommit=True)
+        cur = conn.cursor()
+        cur.execute("SELECT * FROM `matches`")
+        print(cur.description)
         for row in cur:
             print(row)
-        MySQLConnector.cur.close()
-        MySQLConnector.conn.close()
-
+        cur.close()
+        conn.close()

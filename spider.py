@@ -1,4 +1,5 @@
-from urllib.request import urlopen
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 from match_finder import MatchFinder
 
 
@@ -10,7 +11,6 @@ class Spider:
         Spider.base_url = base_url
         self.crawl_page('Spider', Spider.base_url)
 
-    # Aktualizacja plików przy pierwszym uruchomieniu
     @staticmethod
     def crawl_page(thread_name, page_url):
         print(thread_name + ' crawling ' + page_url)

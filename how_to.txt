@@ -1,0 +1,15 @@
+@staticmethod
+
+To dekorator, który pozwala na utworzenie metody, która jest uznawana jako statyczna - czyli nie jest przywiązana
+do żadnego obiektu klasy, czyli tak jak mówiliśmy w złych słowach: nie przekazuje nic specjalnego w pierwszym argumencie
+
+#
+# 1. Program pobiera dane na temat meczy piłkarskich i % szans na wynik meczu ze strony: (za pomocą klasy spider)
+# 2. Usunięte wysyłanie do bazy danych
+# 3. Główny program to main.py
+#
+# Wymagane elementy do uruchomienia aplikacji:
+# pip install requests
+# pip install beautifulsoup4
+# python main.py
+#
